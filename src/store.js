@@ -1,5 +1,5 @@
-import cloneDeep from 'lodash/clonedeep'
-import isEqual from 'lodash/isequal'
+import cloneDeep from 'lodash/cloneDeep'
+import isEqual from 'lodash/isEqual'
 
 export default {
   data: () => ({
@@ -31,8 +31,13 @@ export default {
       }
     },
     deselectRow (row) {
-      if (this.selectionMode === 'single' || this.selectionMode === 'multiple') {
-        const found = this.selectedRows.find((selected) => isEqual(row, selected))
+      if (
+        this.selectionMode === 'single' ||
+        this.selectionMode === 'multiple'
+      ) {
+        const found = this.selectedRows.find(selected =>
+          isEqual(row, selected)
+        )
         const index = this.selectedRows.indexOf(found)
 
         if (index > -1) {
@@ -46,7 +51,10 @@ export default {
       }
     },
     selectAll (all) {
-      if (this.selectionMode === 'single' || this.selectionMode === 'multiple') {
+      if (
+        this.selectionMode === 'single' ||
+        this.selectionMode === 'multiple'
+      ) {
         this.selectedRows = cloneDeep(all)
       }
     },

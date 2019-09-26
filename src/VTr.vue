@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import isEqual from 'lodash/isequal'
+import isEqual from 'lodash/isEqual'
 
 export default {
   name: 'v-tr',
