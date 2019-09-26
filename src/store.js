@@ -1,5 +1,5 @@
-import cloneDeep from 'lodash/fp/cloneDeep'
-import isEqual from 'lodash/fp/isEqual'
+import cloneDeep from 'lodash/cloneDeep'
+import isEqual from 'lodash/isEqual'
 
 export default {
   data: () => ({
