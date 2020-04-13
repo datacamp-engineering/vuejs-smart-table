@@ -2,19 +2,22 @@
   <tr
     :class="[rowClass]"
     :style="style"
-    @click="handleRowSelected"
-
+    @click="handleOnClick"
   >
     <slot></slot>
   </tr>
 </template>
 
 <script>
-import isEqual from 'lodash/isEqual'
+import { isEqual } from 'lodash-es'
 
 export default {
   name: 'v-tr',
   props: {
+    onClick: {
+      type: Function,
+      default: null
+    },
     row: {
       required: true
     }
@@ -26,13 +29,13 @@ export default {
     }
   },
   mounted () {
-    if (!this.state.customSelection) {
+    if (this.onClick || !this.state.customSelection) {
       this.$el.style.cursor = 'pointer'
     }
   },
   beforeDestroy () {
-    if (!this.state.customSelection) {
-      this.$el.removeEventListener('click', this.handleRowSelected)
+    if (this.onClick || !this.state.customSelection) {
+      this.$el.removeEventListener('click', this.handleOnClick)
     }
   },
   computed: {
@@ -44,11 +47,19 @@ export default {
     },
     style () {
       return {
-        ...(!this.state.customSelection ? { cursor: 'pointer' } : {})
+        ...(this.onClick || !this.state.customSelection ? { cursor: 'pointer' } : {})
       }
     }
   },
   methods: {
+    handleOnClick (event) {
+      if (this.onClick) {
+        this.onClick()
+      } else {
+        this.handleRowSelected(event)
+      }
+    },
+
     handleRowSelected (event) {
       if (this.state.customSelection) return
 
